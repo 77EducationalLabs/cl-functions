@@ -5,18 +5,20 @@ pragma solidity 0.8.26;
             Imports
 ///////////////////////////////////*/
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
-
 import { FunctionsClient } from "@chainlink/contracts/src/v0.8/functions/dev/v1_X/FunctionsClient.sol";
-
-/*///////////////////////////////////
-           Interfaces
-///////////////////////////////////*/
-import { FunctionsRequest } from "@chainlink/contracts/src/v0.8/functions/dev/v1_X/libraries/FunctionsRequest.sol";
 
 /*///////////////////////////////////
            Libraries
 ///////////////////////////////////*/
+import { FunctionsRequest } from "@chainlink/contracts/src/v0.8/functions/dev/v1_X/libraries/FunctionsRequest.sol";
 
+/**
+    *@title Chainlink Functions Example
+    *@author i3arba - 77 Innovation Labs
+    *@notice This is an example of Chainlink Functions implementation
+             and have intentional points of improvement for students to correct
+    *@dev do not use this is production. It's not audited and can have bugs.
+*/
 contract CLFExample is FunctionsClient, Ownable{
 
     /*///////////////////////////////////
@@ -41,7 +43,7 @@ contract CLFExample is FunctionsClient, Ownable{
 
     ///@notice the amount of gas needed to complete the call
     uint32 constant CALLBACK_GAS_LIMIT = 200_000;
-    ///@notice Constant variable to hold the JS Script to be executed offchain.
+    ///@notice Constant variable to hold the JS Script to be executed off-chain.
     string constant SOURCE_CODE = 'const e=await import("npm:ethers@6.10.0");class P extends e.JsonRpcProvider{constructor(u){super(u),this.url=u}async _send(p){return(await fetch(this.url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)})).json()}}const r=new P("https://ethereum.publicnode.com");if(!args?.[0]||!e.isAddress(args[0]))throw new Error("Invalid address");return Functions.encodeUint256(await r.getBalance(args[0]))';
 
     ///@notice magic numbers removal
